@@ -1,0 +1,14 @@
+# Ignore Python bytecode files
+*.pyc
+
+# Ignore Python cache directories
+__pycache__/
+
+# Ignore database
+data/
+
+# **IMPORTANT!!!!!** Ignore Local API KEY file 
+api_key.txt
+
+# List misc to be ignored here 
+phase-0.md 
