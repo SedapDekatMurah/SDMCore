@@ -1,0 +1,5 @@
+# Contains Google api key. PRIVATE!
+api_key.txt
+
+#Convenient bat files
+*.bat

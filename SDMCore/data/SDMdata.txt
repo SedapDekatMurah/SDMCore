@@ -1,0 +1,3 @@
+SDMData
+
+tables: Restaurant,place_id,location,pricerange,google_url, menu_1_name, menu_1_price, menu_2_name, menu_2_price, menu_3_name, menu_3_price,menu_4_name, menu_4_price, menu_5_name, menu_5_price, keywords   
