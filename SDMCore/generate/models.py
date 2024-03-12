@@ -5,13 +5,13 @@ from django.db import models
 # def generate_data
 # # reply_message = ""
 
-# # try 
+# # try
 # # # conn.cursor = open (database)
 # # # catch if database failed:
 # # # # throw err
 
-# # # restaurants_data = #generate_script_function().json()
-# # # catch if data generation failed:
+# # # restaurants_data = #places_function()
+# # # catch if restaurants_data contains error:
 # # # # throw err
 
 # # # for restaurant in restaurants_data:
