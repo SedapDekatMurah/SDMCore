@@ -1,3 +1,5 @@
+from SDMCore.generate import views
+
 """
 URL configuration for SDMCore project.
 
@@ -19,4 +21,6 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('generate/', views.post_generate),
+    path('restaurants/', views.get_restaurants)
 ]

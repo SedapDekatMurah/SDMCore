@@ -2,28 +2,33 @@ from django.test import TestCase
 
 # generate-scripts/
 
-# init-generate.py
-# # init_generate function
-# # # Should take an input value
+# generate.py
+# # generate_initial_data function
+# # # Should take two number parameters
+# # # returns False when any of the 4 tasks fail
+# # # returns True when all 4 tasks succeed
 
+# save.py
+# # save_places function
+# # # takes an object variable
+# # # returns False when task fails
+# # # return True when task succeeds
 
-# restaurant-generate.py
-# # restaurant_gen function
-# # #
+# keywords.py
+# # generate_keywords function
+# # # Should take no parameters
+# # # Return False if task fails
+# # # Return True if task succeeds
+# # get_top_keywords function
+# # # Should take one Array<string> parameter
+# # # Return False if task fails
+# # # Return True if task succeeds
 
-# reviews-generate.py
-# # reviews_gen function
-# # #
-
-
-# keyword-generate.py
-# # keywords_gen function
-# # #
-
-# menu-generate.py
-# # menu_gen function
-# # #
-
+# menu.py
+# # generate_menu function
+# # # Should take no parameters
+# # # Return False if task fails
+# # # Return True if task succeeds
 
 # model.py
 # # generate_data function

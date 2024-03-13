@@ -1,33 +1,30 @@
 from django.db import models
 # import generation_scripts
 
-# Create your models here.
-# def generate_data
-# # reply_message = ""
 
-# # try
-# # # conn.cursor = open (database)
-# # # catch if database failed:
-# # # # throw err
+class Restaurant(models.Model):
+    name = models.TextField(default="")
+    place_id = models.TextField(primary_key=True, default="")
+    address = models.TextField(default="")
+    loc_latitude = models.FloatField(default=0)
+    loc_longitude = models.FloatField(default=0)
+    rating = models.FloatField(default=0)
+    maps_url = models.TextField(default="")
+    menu_1_item = models.TextField(default="")
+    menu_1_price = models.TextField(default="")
+    menu_2_item = models.TextField(default="")
+    menu_2_price = models.TextField(default="")
+    menu_3_item = models.TextField(default="")
+    menu_3_price = models.TextField(default="")
+    keyword_1 = models.TextField(default="")
+    keyword_2 = models.TextField(default="")
+    keyword_3 = models.TextField(default="")
+    keyword_4 = models.TextField(default="")
+    keyword_5 = models.TextField(default="")
+    # Fields here
 
-# # # restaurants_data = #places_function()
-# # # catch if restaurants_data contains error:
-# # # # throw err
 
-# # # for restaurant in restaurants_data:
-# # # # conn.execute('''INSERT INTO TABLE restaurants WHERE NOT EXISTS (?,?,?,?,?) (...values)'''
-# # # # for review in restaurant['reviews']
-# # # # # conn.execute('''INSERT INTO TABLE reviews WHERE NOT EXISTS (?,?,?,?,?) (...values)'''
-
-# # # close when succesful
-# # # conn.commit()
-# # # conn.close()
-
-# # # return message
-# # # reply_message = "Restaurant data generated for {latitude}, {longitude}
-
-# # catch
-# # # reply_message = "Encountered server error"
-
-# # finally
-# # # return reply_message
+class Review(models.Model):
+    url = models.TextField(primary_key=True, default="")
+    review = models.TextField(default="")
+    # Fields here

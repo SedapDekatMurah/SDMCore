@@ -1,8 +1,5 @@
-# Ignore Python bytecode files
-*.pyc
-
-# Ignore Python cache directories
-__pycache__/
-
 # Ignore convenience bat files
 *.bat
+
+# IMPORTANT hide api_key.txt
+api_key.txt
