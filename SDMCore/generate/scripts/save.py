@@ -40,6 +40,7 @@ def save_places(data):
                 review_text = review['text']['text']
 
                 Review.objects.get_or_create(
+                    place_id=place_id,
                     url=review_url, review=review_text)
 
         # Returns true if successful

@@ -1,7 +1,7 @@
 from sklearn.feature_extraction.text import CountVectorizer
 from nltk.corpus import stopwords
 from collections import Counter
-import sqlite3
+from SDMCore.generate.models import Restaurant, Review
 import nltk
 from nltk.tokenize import word_tokenize
 
@@ -13,9 +13,11 @@ nltk.download('stopwords')
 # PoC Bootstrap Keyword generation from Google Reviews
 
 
-def get_top_keywords(texts, n=10):
-    # Combine all texts into one string
-    combined_text = ' '.join(texts)
+def get_top_keywords(reviews, n=10):
+    # Combine all review text into one string
+    combined_text = ""
+    for review in reviews:
+        combined_text += review.review + " "
 
     # Tokenize the text
     tokens = word_tokenize(combined_text)
@@ -47,34 +49,38 @@ def get_top_keywords(texts, n=10):
 def generate_keywords():
 
     # TODO
+
+    # Fetch all entries in review table
+    reviews_all = Review.objects.all()
+
+    # List all Restaurants by place id
+    restaurants_by_place_id = []
+    for review in reviews_all:
+        if review.place_id not in restaurants_by_place_id:
+            restaurants_by_place_id.append(review.place_id)
+
+    # Create a sorted review list, by restaurant id
+    for restaurant in restaurants_by_place_id:
+        reviews_filter = reviews_all.filter(place_id=restaurant)
+
+        # Adding top keywords to restaurant profile
+
+        # Generate keywords using NLP
+        top_keywords = get_top_keywords(reviews_filter)
+
+        # Get list of keyword keys
+        keyword_list = list(top_keywords)
+
+        # TODO additional processing
+
+        # Insert top 5 into restaurant profile
+        restaurant = Restaurant.objects.get(place_id=restaurant)
+        restaurant.keyword_1 = keyword_list[0]
+        restaurant.keyword_2 = keyword_list[1]
+        restaurant.keyword_3 = keyword_list[2]
+        restaurant.keyword_4 = keyword_list[3]
+        restaurant.keyword_5 = keyword_list[4]
+
+        restaurant.save()
+
     return True
-
-    # Get data from DB
-    conn = sqlite3.connect('../data/restaurants.db')
-    cursor = conn.cursor()
-
-    # Get all reviews
-    reviews_aggregate = cursor.execute('''SELECT * FROM reviews''')
-
-    # Create a list of all Restaurants in the database
-    restaurant_list = []
-    for review in reviews_aggregate.fetchall():
-        if review[0] not in restaurant_list:
-            restaurant_list.append(review[0])
-
-    review_list = []
-
-    # For each restaurant ID, create a subarray of reviews
-    for restaurant in restaurant_list:
-        reviews = cursor.execute(
-            '''SELECT review FROM reviews WHERE place_id=(?)''', (restaurant,)).fetchall()
-        new_restaurant = []
-        for review in reviews:
-            new_restaurant.append(review[0])
-        review_list.append(new_restaurant)
-
-    for reviews in review_list:
-        # Get top 10 keywords
-        print(get_top_keywords(reviews, 10))
-
-        # IDEAS: FURTHER FILTERING OF KEYWORDS (e.g. only adjectives to assess 'sedap', nouns for menu items)

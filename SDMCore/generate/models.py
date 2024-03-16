@@ -25,6 +25,7 @@ class Restaurant(models.Model):
 
 
 class Review(models.Model):
+    place_id = models.TextField(default="")
     url = models.TextField(primary_key=True, default="")
     review = models.TextField(default="")
     # Fields here
