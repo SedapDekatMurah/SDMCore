@@ -1,4 +1,4 @@
-from SDMCore.generate.scripts import save, places, keywords, menu
+from SDMCore.core.scripts import save, places, keywords, menu
 
 # Master script for triggering generation process
 

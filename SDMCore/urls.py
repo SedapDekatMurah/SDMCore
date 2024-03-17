@@ -1,4 +1,4 @@
-from SDMCore.generate import views
+from SDMCore.core import views
 
 """
 URL configuration for SDMCore project.

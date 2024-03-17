@@ -1,7 +1,7 @@
 from sklearn.feature_extraction.text import CountVectorizer
 from nltk.corpus import stopwords
 from collections import Counter
-from SDMCore.generate.models import Restaurant, Review
+from SDMCore.core.models import Restaurant, Review
 import nltk
 from nltk.tokenize import word_tokenize
 

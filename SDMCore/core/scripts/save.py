@@ -1,4 +1,4 @@
-from SDMCore.generate.models import Restaurant, Review
+from SDMCore.core.models import Restaurant, Review
 
 # Save data retrieved from Places API
 

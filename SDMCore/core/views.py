@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import render
-from SDMCore.generate.scripts import generate
+from SDMCore.core.scripts import generate
 
 import json
 
@@ -17,7 +17,7 @@ def post_generate(request):
 
         # Generate database
         if generate.generate_data(latitude, longitude):
-            return JsonResponse({'message': "Successfully generated restaurant data for location {latitude},{longitude}. Thank you!"})
+            return JsonResponse({'message': "Successfully generated restaurant data for location {},{}. Thank you!".format(latitude, longitude)})
         else:
             return JsonResponse({'message': "Failed to generate restaurant data!"})
 
@@ -30,11 +30,11 @@ def get_restaurants(request):
         latitude = request.GET.get("latitude", None)
         longitude = request.GET.get("longitude", None)
 
-        if latitude == None or longitude == None:
+        if not latitude or not longitude:
             return JsonResponse({'message': "Missing location parameters"})
 
         # TODO Get data from db
 
         return JsonResponse({'message': "Retrieved data!"})
     else:
-        return JsonResponse({'message': "API request should be POST type"})
+        return JsonResponse({'message': "API request should be GET type"})
