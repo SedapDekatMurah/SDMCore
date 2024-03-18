@@ -58,4 +58,4 @@ def get_restaurants(latitude, longitude):
     else:
         print("Request failed!")
         print("Status code:", response.json())
-        return json.loads({'ErrorStatus': "true"})
+        return json.dumps({'ErrorStatus': "true"})

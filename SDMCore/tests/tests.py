@@ -1,6 +1,6 @@
 from django.test import TestCase
 from unittest.mock import patch
-from SDMCore.core.scripts import generate, places
+from SDMCore.core.scripts import generate, places, save
 
 # generate-scripts/
 
@@ -10,16 +10,60 @@ from SDMCore.core.scripts import generate, places
 
 
 class TestGenerateData(TestCase):
-    def mock_function():
-        return {'ErrorStatus': 'test'}
-    # get_restaurant returns 'ErrorStatus'
+    def test_func_generate_data(self):
+        # Assert that generate_data returns true on a valid query
+        self.assertEqual(generate.generate_data(
+            "3.139003", "101.686852"), True)
 
-    # @patch('SDMCore.core.scripts.places', get_restaurant=mock_function)
-    def test_get_restaurants_error(self, mock_get_restaurant):
-        print(places.get_restaurants("10", "10"))
+        # Assert that generate_data returns False on an invalid query
+        self.assertEqual(generate.generate_data("100", "10"), False)
 
-        # Assert that getting 'ErrorStatus' from places.get_restaurants will cause generate_data to return False
-        self.assertEqual(generate.generate_data("10", "10"), False)
+
+class TestSave(TestCase):
+    testData = {"places": [{'displayName': {
+        'text': "testvalue"}, 'id': "testId", 'formattedAddress': "112233 Malibu Point", 'location': {'latitude': "10", 'longitude': '10'}, 'rating': "4", 'googleMapsUri': "http://test", 'reviews': [{'authorAttribution': {'uri': "testUrl"}, 'text': {'text': "testreview"}}]}]}
+
+    def test_func_save_places(self):
+        # Assert that save_places returns True on a valid operatiosn
+        self.assertEqual(save.save_places(self.testData), True)
+
+
+class TestPlaces(TestCase):
+    def test_unit_get_restaurants(self):
+        # Assert that get_restaurant returns true on a valid query
+        data = places.get_restaurants(
+            "3.139003", "101.686852")
+        assert 'places' in data
+
+        # Assert that get_restaurants returns False on an invalid query
+        data = places.get_restaurants("100", "10")
+        assert 'places' not in data
+
+
+class TestKeywords(TestCase):
+    def test_func_generate_keywords(self):
+        return
+
+    def test_unit_get_top_keywords(self):
+        return
+        # get_top_keywords returns a list of keywords given a list of strings
+        # get_top_keywords returns a blank array if given a blank string
+
+
+class TestPlacesAPI(TestCase):
+    def test_int_places_api(self):
+        return
+        # Places API should return restaurants data in the given format
+
+
+class TestViews(TestCase):
+    def test_func_generate(self):
+        return
+
+
+class TestMenu(TestCase):
+    def test_get_menu(self):
+        return
 
 # # generate_initial_data function
 # # # Should take two number parameters
