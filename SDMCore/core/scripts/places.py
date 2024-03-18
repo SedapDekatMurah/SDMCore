@@ -12,9 +12,19 @@ def get_api_key(file_path):
     api_key_file = file_path
 
     # Read API key from the text file
-    with open(api_key_file, 'r') as file:
-        api_key = file.read().strip()
-    return api_key
+    try:
+        with open(api_key_file, 'r') as file:
+            api_key = file.read().strip()
+        return api_key
+    except FileNotFoundError:
+        print("File not found.")
+        return ""
+    except IOError as e:
+        print("Error reading the file:", e)
+        return ""
+    except Exception as e:
+        print("An unexpected error occurred:", e)
+        return ""
 
 
 def get_restaurants(latitude, longitude):

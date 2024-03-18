@@ -1,5 +1,7 @@
 from django.test import TestCase
 from unittest.mock import patch
+
+import requests
 from SDMCore.core.scripts import generate, places, save
 
 # generate-scripts/
@@ -39,6 +41,15 @@ class TestPlaces(TestCase):
         data = places.get_restaurants("100", "10")
         assert 'places' not in data
 
+    def test_unit_get_api_key(self):
+        # Returns a string value when given a valid file path
+        data = places.get_api_key("api_key.txt")
+        assert data != ""
+
+        # Returns a blank string when given an invalid file path
+        data = places.get_api_key("invalidpath")
+        assert data == ""
+
 
 class TestKeywords(TestCase):
     def test_func_generate_keywords(self):
@@ -52,8 +63,36 @@ class TestKeywords(TestCase):
 
 class TestPlacesAPI(TestCase):
     def test_int_places_api(self):
-        return
-        # Places API should return restaurants data in the given format
+        # Places API should return expected values. Test does not include a valid API key so it should give 'no key' error
+
+        URL = "https://places.googleapis.com/v1/places:searchNearby"
+
+        API_KEY = ""
+
+        headers = {
+            'Content-Type': "application/json",
+            'X-Goog-API-Key': API_KEY,
+            'X-Goog-FieldMask': "places.id,places.displayName,places.rating,places.googleMapsUri,places.formattedAddress,places.location,places.reviews",
+        }
+
+        data = {
+            "includedTypes": ["restaurant"],
+            "maxResultCount": 2,
+            "locationRestriction": {
+                "circle": {
+                    "center": {
+                        "latitude": 10,
+                        "longitude": 10,
+                    },
+                    "radius": 500.0
+                }
+            }
+        }
+
+        response = requests.post(URL, headers=headers, json=data)
+
+        # Error code 403 (no API key)
+        assert response.status_code == 403
 
 
 class TestViews(TestCase):
